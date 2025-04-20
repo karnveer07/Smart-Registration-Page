@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMSEC Registration Successful</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-card">
+           
+            <h1><i class="fas fa-check-circle success-icon"></i> Registration Successful!</h1>
+            <div class="success-animation">
+                <div class="checkmark">
+                    <div class="checkmark-circle"></div>
+                    <div class="checkmark-stem"></div>
+                    <div class="checkmark-kick"></div>
+                </div>
+            </div>
+            <div id="confirmationMessage" class="confirmation-message"></div>
+            <div id="registrationId" class="registration-id">
+                <i class="fas fa-fingerprint"></i> <span id="regIdText"></span>
+            </div>
+            <div id="registrationTime" class="confirmation-message">
+                <i class="fas fa-clock"></i> <span id="regTimeText"></span>
+            </div>
+            <div class="next-steps">
+                <h3><i class="fas fa-list-check"></i> Next Steps</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> Check your email for confirmation</li>
+                    <li><i class="fas fa-id-card"></i> Save your registration ID</li>
+                    <li><i class="fas fa-calendar"></i> Await further instructions</li>
+                </ul>
+            </div>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-user-plus"></i> Register Another
+            </a>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            const userData = JSON.parse(localStorage.getItem('registrationData'));
+            if (userData) {
+                // Add animation classes
+                document.querySelector('.success-card').classList.add('fade-in');
+                
+                // Animate text content
+                setTimeout(() => {
+                    document.getElementById('confirmationMessage').innerHTML = 
+                        `<i class="fas fa-user-graduate"></i> Thank you, <strong>${userData.fullName}</strong> <br>
+                        <small>(${userData.department}/${userData.studentId})</small>`;
+                    
+                    document.getElementById('regIdText').textContent = userData.registrationId;
+                    document.getElementById('regTimeText').textContent = 
+                        new Date(userData.timestamp).toLocaleString();
+                    
+                    // Animate elements
+                    document.querySelectorAll('.confirmation-message, .registration-id, .next-steps').forEach((el, i) => {
+                        setTimeout(() => el.classList.add('slide-in'), i * 200);
+                    });
+                }, 500);
+                
+                // Clear the form data but keep the registration record
+                localStorage.removeItem('formAutosave');
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

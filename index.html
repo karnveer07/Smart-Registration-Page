@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMSEC Smart Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+           
+            <h1>Smart Registration</h1>
+            <div id="autosaveStatus" class="autosave-status"></div>
+            <form id="registrationForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required
+                           pattern="[A-Za-z ]{2,50}" 
+                           title="Name should contain only letters and spaces, 2-50 characters"
+                           oninput="validateInput(this); autoSave()">
+                    <div class="input-help">
+                        <i class="fas fa-info-circle"></i> Enter your full name as it appears in official documents
+                    </div>
+                    <div class="validation-message" id="fullName-validation"></div>
+                </div>
+                <div class="form-group">
+                    <label for="studentId"><i class="fas fa-id-card"></i> Admission Number / Student ID</label>
+                    <input type="text" id="studentId" name="studentId" required
+                           pattern="\d{10}"
+                           title="Admission number must be exactly 10 digits"
+                           oninput="formatStudentId(this); autoSave()">
+                    <div class="input-help">
+                        <i class="fas fa-info-circle"></i> Enter exactly 10 digits for admission number
+                    </div>
+                    <div class="validation-message" id="studentId-validation"></div>
+                </div>
+                <div class="form-group">
+                    <label for="department"><i class="fas fa-graduation-cap"></i> Department / Course</label>
+                    <input type="text" id="department" name="department" required
+                           list="departments" 
+                           oninput="autoSave()">
+                    <div class="input-help">
+                        <i class="fas fa-info-circle"></i> Type to search or select from the dropdown
+                    </div>
+                    <datalist id="departments">
+                        <option value="MCA - Masters in Computer Applications">
+                        <option value="BCA - Bachelors in Computer Applications">
+                        <option value="B.Tech - Computer Science & Engineering">
+                        <option value="B.Tech - Information Technology">
+                        <option value="B.Tech - Electronics & Communication">
+                        <option value="M.Tech - Computer Science & Engineering">
+                        <option value="MBA - Master of Business Administration">
+                    </datalist>
+                    <div class="validation-message" id="department-validation"></div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-check-circle"></i> Register
+                    </button>
+                    <button type="button" class="clear-btn" onclick="clearForm()">
+                        <i class="fas fa-times-circle"></i> Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
